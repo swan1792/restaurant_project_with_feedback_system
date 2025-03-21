@@ -26,7 +26,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'dish';
+    // protected function redirectTo()
+    // {
+    // return route('dish.index'); // Redirects to the index method of DishesController
+    // }
 
     /**
      * Create a new controller instance.

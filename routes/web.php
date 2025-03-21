@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DishesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,7 @@ Route::get('/', function () {
 });
 
 
-
-Route::get('/home', [App\Http\Controllers\OrdersController::class, 'index'])->name('home');
-Route::resource('/home', App\Http\Controllers\DishesController::class);
+Route::resource('dish', DishesController::class);
 
 
 Auth::routes(
