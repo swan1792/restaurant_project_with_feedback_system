@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'dish';
+    protected $redirectTo = '/dish';
     // protected function redirectTo()
     // {
     // return route('dish.index'); // Redirects to the index method of DishesController

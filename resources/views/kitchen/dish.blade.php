@@ -93,7 +93,25 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
+  <div class="float-right d-none d-sm-inline">
+    <form action="logout" method="POST">
+      @csrf
+      <button type="submit" class="btn btn-default">Logout</button>
+    </form>
+  </div>
 
 @endsection
 
+<script src="plugins/jquery/jquery.min.js"></script>
+<script>
+    $(function () {
+    $('#dishes').DataTable({
+        "paging": true,
+        "searching" : true,
+        "pageLength": 10,
+        "lengthChange": false,
+        "ordering": true,
+        "info": true,
+    });
+});
+</script>

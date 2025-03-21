@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DishesController;
+use App\Http\Controllers\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,18 @@ use App\Http\Controllers\DishesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[App\Http\Controllers\OrdersController::class,'index'])->name('order.form');
+
+Route::post('order_submit', [App\Http\Controllers\OrdersController::class, 'submit'])->name('order.submit');
 
 
 Route::resource('dish', DishesController::class);
+Route::get('order', [App\Http\Controllers\DishesController::class,'order'])->name('kitchen.order');
+Route::get('order/{order}/approve', [App\Http\Controllers\DishesController::class,'approve']);
+Route::get('order/{order}/cancel', [App\Http\Controllers\DishesController::class,'cancel']);
+Route::get('order/{order}/ready', [App\Http\Controllers\DishesController::class,'ready']);
+
+Route::get('order/{order}/serve', [App\Http\Controllers\OrdersController::class,'serve']);
 
 
 Auth::routes(
