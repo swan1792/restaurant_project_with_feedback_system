@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserTableSeeder::class);
-        $this->call(TableTableSeeder::class);
+        // $this->call(CategorySeeder::class);
+        // $this->call(UserTableSeeder::class);
+        // $this->call(TableTableSeeder::class);
     }
 }

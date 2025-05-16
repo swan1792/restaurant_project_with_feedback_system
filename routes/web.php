@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DishesController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,11 @@ Route::get('order/{order}/cancel', [App\Http\Controllers\DishesController::class
 Route::get('order/{order}/ready', [App\Http\Controllers\DishesController::class,'ready']);
 
 Route::get('order/{order}/serve', [App\Http\Controllers\OrdersController::class,'serve']);
+
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.submit');
+
+Route::get('/admin/feedbacks', [FeedbackController::class, 'index'])->name('admin.feedbacks');
+
 
 
 Auth::routes(

@@ -65,6 +65,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Orders</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.feedbacks') }}" class="nav-link">
+                    <i class="nav-icon fas fa-comment-dots"></i>
+                    <p>Feedback</p>
+                </a>
+              </li>
+            
             </ul>
           </li>
         </ul>
