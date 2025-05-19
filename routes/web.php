@@ -30,7 +30,7 @@ Route::get('order/{order}/ready', [App\Http\Controllers\DishesController::class,
 
 Route::get('order/{order}/serve', [App\Http\Controllers\OrdersController::class,'serve']);
 
-Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.submit');
+// Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.submit');
 
 Route::get('/admin/feedbacks', [FeedbackController::class, 'index'])->name('admin.feedbacks');
 

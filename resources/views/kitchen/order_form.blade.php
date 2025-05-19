@@ -98,36 +98,38 @@
                                 </table>
                             </div>
 
-                            <!-- Customer Feedback -->
-                            <div class="tab-pane fade" id="tab3" role="tabpanel">
-                                <h5>Submit Customer Feedback</h5>
-                                <form action="{{ route('feedback.submit') }}" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="name">Customer Name</label>
-                                        <input type="text" name="name" class="form-control" required>
-                                    </div>
+                           <!-- Customer Feedback -->
+                        <div class="tab-pane fade" id="tab3" role="tabpanel">
+                            <h5>Submit Customer Feedback</h5>
+                                <form id="feedback-form">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="name">Customer Name</label>
+                                    <input type="text" name="name" class="form-control" required>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label for="email">Customer Email</label>
-                                        <input type="email" name="email" class="form-control" required>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="email">Customer Email</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label for="comment">Feedback Comment</label>
-                                        <textarea name="comment" class="form-control" rows="4" required></textarea>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="comment">Feedback Comment</label>
+                                    <textarea name="comment" class="form-control" rows="4" required></textarea>
+                                </div>
 
-                                    <label>Feedback (Food Quality)</label>
-                                    <select name="status" class="form-control" required>
-                                        <option value="bad">Bad</option>
-                                        <option value="better">Better</option>
-                                        <option value="good">Good</option>
-                                        <option value="best">Best</option>
-                                    </select><br>
+                                <label>Feedback (Food Quality)</label>
+                                <select name="status" class="form-control" required>
+                                    <option value="bad">Bad</option>
+                                    <option value="better">Better</option>
+                                    <option value="good">Good</option>
+                                    <option value="best">Best</option>
+                                </select><br>
 
                                     <button type="submit" class="btn btn-primary">Submit Feedback</button>
                                 </form>
+
+                                <div id="feedback-response" class="mt-2"></div>
                             </div>
 
                         </div>
@@ -146,5 +148,41 @@
 <script src="/plugins/datatables/jquery.dataTables.js"></script>
 <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <script src="/dist/js/adminlte.min.js"></script>
+<script>
+    document.getElementById('feedback-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+    
+        const form = e.target;
+        const formData = new FormData(form);
+    
+        fetch('/api/feedback', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(async res => {
+            const data = await res.json();
+            const responseDiv = document.getElementById('feedback-response');
+    
+            if (res.ok) {
+                responseDiv.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+                form.reset();
+            } else {
+                let errors = '';
+                for (let key in data.errors) {
+                    errors += `<li>${data.errors[key][0]}</li>`;
+                }
+                responseDiv.innerHTML = `<div class="alert alert-danger"><ul>${errors}</ul></div>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('feedback-response').innerHTML = '<div class="alert alert-danger">An unexpected error occurred.</div>';
+        });
+    });
+</script>
+    
 </body>
 </html>
