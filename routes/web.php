@@ -27,7 +27,6 @@ Route::get('order', [App\Http\Controllers\DishesController::class,'order'])->nam
 Route::get('order/{order}/approve', [App\Http\Controllers\DishesController::class,'approve']);
 Route::get('order/{order}/cancel', [App\Http\Controllers\DishesController::class,'cancel']);
 Route::get('order/{order}/ready', [App\Http\Controllers\DishesController::class,'ready']);
-
 Route::get('order/{order}/serve', [App\Http\Controllers\OrdersController::class,'serve']);
 
 // Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.submit');
