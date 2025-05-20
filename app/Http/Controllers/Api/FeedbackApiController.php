@@ -16,7 +16,7 @@ class FeedbackApiController extends Controller
             'comment' => 'required|string',
             'status'  => 'required|in:bad,better,good,best',
         ]);
-
+      
         $feedback = Feedback::create($validated);
 
         return response()->json([

@@ -57,11 +57,32 @@
                       <td>{{ $feedback->email }}</td>
                       <td>{{ $feedback->comment }}</td>
                       <td>
-                        <span class="badge badge-{{ $badge[$feedback->status] ?? 'info' }}">
-                          {{ $feedback->status }}
+                        <span class="badge badge-{{ $badge[ucfirst($feedback->status)] ?? 'info' }}">
+                          {{ ucfirst($feedback->status) }}
                         </span>
                       </td>
                       <td>{{ $feedback->created_at->format('d M Y') }}</td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="6">
+                        <!-- Reply Form -->
+                        <form action="{{ route('feedback.reply', $feedback->id) }}" method="POST" class="mb-2">
+                          @csrf
+                          <div class="form-group">
+                            <label>Reply to {{ $feedback->email }}:</label>
+                            <textarea name="reply" class="form-control" rows="2" required>{{ old('reply', $feedback->reply) }}</textarea>
+                          </div>
+                          <button type="submit" class="btn btn-primary btn-sm">Send Reply</button>
+                        </form>
+
+                        <!-- Delete Form -->
+                        <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this feedback?')">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                      </td>
                     </tr>
                   @endforeach
                 </tbody>

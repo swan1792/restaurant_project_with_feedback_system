@@ -33,6 +33,9 @@ Route::get('order/{order}/serve', [App\Http\Controllers\OrdersController::class,
 // Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.submit');
 
 Route::get('/admin/feedbacks', [FeedbackController::class, 'index'])->name('admin.feedbacks');
+Route::post('/feedback/{id}/reply', [FeedbackController::class, 'reply'])->name('feedback.reply');
+Route::delete('/feedback/{id}', [App\Http\Controllers\FeedbackController::class, 'destroy'])->name('feedback.destroy');
+
 
 
 

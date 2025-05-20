@@ -2,9 +2,12 @@
 
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Models\Feedback;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\FeedbackReply;
+
+
 
 class FeedbackController extends Controller
 {
@@ -14,6 +17,35 @@ class FeedbackController extends Controller
     $feedbacks = Feedback::latest()->get();
     return view('admin.feedback.index', compact('feedbacks'));
     }
+
+    
+
+    public function reply(Request $request, $id)
+    {
+        $request->validate([
+            'reply' => 'required|string',
+        ]);
+
+        $feedback = Feedback::findOrFail($id);
+        $feedback->reply = $request->reply;
+        $feedback->save();
+
+        // Send email using Mailtrap
+        Mail::to($feedback->email)->send(new FeedbackReply($feedback));
+
+        return back()->with('message', 'Reply sent to customer successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $feedback = Feedback::findOrFail($id);
+        $feedback->delete();
+
+        return redirect()->back()->with('message', 'Feedback deleted successfully.');
+    }
+
+
+
 
     // // Store feedback from the form
     // public function store(Request $request)
